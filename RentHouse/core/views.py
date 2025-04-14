@@ -69,3 +69,11 @@ class AddHouseView(APIView) :
         else :
             return Response(serializer.errors , status=status.HTTP_400_BAD_REQUEST)
     
+class SingleTenant(APIView) :
+    def post(self , request , tenant_id , *args , **kwargs) :
+        try :
+            tenant = Tenant.objects.get(id=tenant_id)
+        except Tenant.DoesNotExist :
+            return Response({"detail" : "Tenant not found"} , status=status.HTTP_404_NOT_FOUND)
+        serializer = TenantSerializer(tenant)
+        return Response(serializer.data , status=status.HTTP_200_OK)
