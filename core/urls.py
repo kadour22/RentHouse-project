@@ -9,5 +9,6 @@ urlpatterns = [
     path("add-house/"            , views.AddHouseView.as_view()            , name="add-house"),
     path("houses-list/"          , views.ListHouseView.as_view()           , name="houses-list"),
     path("house/<int:house_id>/" , views.RetrieveHouseView.as_view()       , name="house"),
+    path("tenant/delete/<int:id>/" , views.DeleteTenantAccount.as_view()   , name="house"),
 ]
 

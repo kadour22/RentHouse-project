@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status , permissions
+from rest_framework import status , permissions , generics
 
 from .models import Tenant  , House , Department
 from .serializers import TenantSerializer , RentSerializer , HouseSerializer , DepartmentSerializer
@@ -85,3 +85,8 @@ class RetrieveHouseView(APIView) :
             return Response({"detail" : "House not found"} , status=status.HTTP_404_NOT_FOUND)
         serializer = HouseSerializer(house)
         return Response(serializer.data , status=status.HTTP_200_OK)
+
+class DeleteTenantAccount(generics.DestroyAPIView) :
+    serializer_class = TenantSerializer
+    queryset = Tenant.objects.all()
+    lookup_field = "id"
